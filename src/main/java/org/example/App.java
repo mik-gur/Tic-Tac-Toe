@@ -7,7 +7,9 @@ package org.example;
 public class App 
 {
     public static void main( String[] args ) {
-        BoardGame boardGame = new BoardGame();
-        boardGame.drawBoard(boardGame.createBoardGame());
+        Player player = new Player();
+
+        player.askPlayerForName();
+        player.askTwoPlayersForNames();
     }
 }
