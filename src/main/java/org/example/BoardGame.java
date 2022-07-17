@@ -1,7 +1,7 @@
 package org.example;
 
 public class BoardGame {
-    private final int SIZE_BOARD = 3;
+    protected final int SIZE_BOARD = 3;
 
     public char[][] createBoardGame(){
         char[][] board = new char[SIZE_BOARD][SIZE_BOARD];

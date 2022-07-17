@@ -6,6 +6,10 @@ public class Player {
 
     private Scanner scanner = new Scanner(System.in);
 
+    protected char p1Symbol;
+    protected char compSymbol;
+    protected char p2Symbol;
+
     public void askPlayerForName(){
         System.out.println("What is your name?");
         String p1Name = scanner.nextLine();
@@ -24,16 +28,16 @@ public class Player {
     public void askPlayerForSymbol(){
         System.out.println("Which symbol you want to use: x or o?");
         scanner = new Scanner(System.in);
-        char p1Symbol = scanner.next().toLowerCase().charAt(0);
-        char compSymbol = (p1Symbol == 'x') ? 'o' : 'x';
-        System.out.println("Symbol " + p1Symbol + " is using and Computer " + compSymbol);
+        p1Symbol = scanner.next().toLowerCase().charAt(0);
+        compSymbol = (p1Symbol == 'x') ? 'o' : 'x';
+        System.out.println("You have " + p1Symbol + " symbol and Computer have " + compSymbol);
     }
 
     public void askPlayersForSymbols(){
         System.out.println("Which symbol first player want to use: x or o?");
         scanner = new Scanner(System.in);
-        char p1Symbol = scanner.next().toLowerCase().charAt(0);
-        char p2Symbol = (p1Symbol == 'x') ? 'o' : 'x';
+        p1Symbol = scanner.next().toLowerCase().charAt(0);
+        p2Symbol = (p1Symbol == 'x') ? 'o' : 'x';
         System.out.println("Player one have " + p1Symbol + " symbol and " + p2Symbol);
     }
 }
