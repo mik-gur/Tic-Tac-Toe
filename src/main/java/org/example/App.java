@@ -9,7 +9,7 @@ public class App
     public static void main( String[] args ) {
         Player player = new Player();
 
-        player.askPlayerForName();
-        player.askTwoPlayersForNames();
+        player.askPlayerForSymbol();
+        player.askPlayersForSymbols();
     }
 }
