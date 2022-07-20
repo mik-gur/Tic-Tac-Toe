@@ -21,7 +21,7 @@ public class GameTurns {
 
         if (firstTurn == 'y'){
             turn = 0;
-            game.firstPlayerPlay(boardGame.board, player.p1Symbol);
+            game.playerMove(boardGame.board);
         }
         else {
             turn = 1;

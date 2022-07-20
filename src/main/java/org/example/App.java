@@ -23,5 +23,7 @@ public class App
         boardGame.resetBoard(boardGame.board);
         player.askPlayerForName();
         player.askPlayerForSymbol();
+        game.playerMove(boardGame.board);
+        System.out.println(game.character);
     }
 }

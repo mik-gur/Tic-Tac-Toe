@@ -26,18 +26,18 @@ public class Player {
     }
 
     public void askPlayerForSymbol(){
-        System.out.println("Which symbol you want to use: x or o?");
+        System.out.println("Which symbol you want to use: X or O?");
         scanner = new Scanner(System.in);
-        p1Symbol = scanner.next().toLowerCase().charAt(0);
-        compSymbol = (p1Symbol == 'x') ? 'o' : 'x';
+        p1Symbol = scanner.next().toUpperCase().charAt(0);
+        compSymbol = (p1Symbol == 'X') ? 'O' : 'X';
         System.out.println("You have " + p1Symbol + " symbol and Computer have " + compSymbol);
     }
 
     public void askPlayersForSymbols(){
-        System.out.println("Which symbol first player want to use: x or o?");
+        System.out.println("Which symbol first player want to use: X or O?");
         scanner = new Scanner(System.in);
-        p1Symbol = scanner.next().toLowerCase().charAt(0);
-        p2Symbol = (p1Symbol == 'x') ? 'o' : 'x';
+        p1Symbol = scanner.next().toUpperCase().charAt(0);
+        p2Symbol = (p1Symbol == 'X') ? 'O' : 'X';
         System.out.println("Player one have " + p1Symbol + " symbol and " + p2Symbol);
     }
 }
