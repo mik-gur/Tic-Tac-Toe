@@ -20,7 +20,7 @@ public class Game {
         board[rowIndex][colIndex] = firstPlayerSymbol;
     }
 
-    public void secondPlayerPlay(char[][] board, char secondPlayerSymbol){
+    public char secondPlayerPlay(char[][] board, char secondPlayerSymbol){
         System.out.println("Enter the row and column: ");
         int rowIndex = scanner.nextInt();
         int colIndex = scanner.nextInt();
@@ -30,7 +30,7 @@ public class Game {
             rowIndex = scanner.nextInt();
             colIndex = scanner.nextInt();
         }
-        board[rowIndex][colIndex] = secondPlayerSymbol;
+        return board[rowIndex][colIndex] = secondPlayerSymbol;
     }
 
     public void ComputerPlay(char[][] board, char computerSymbol){

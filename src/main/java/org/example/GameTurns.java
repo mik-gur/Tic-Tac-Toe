@@ -13,6 +13,7 @@ public class GameTurns {
 
     private int turn;
     private int remainTurns = boardGame.SIZE_BOARD * boardGame.SIZE_BOARD;
+    private boolean done;
 
     public void askForFirstTurn(){
         System.out.println("Do you want to start (y/n) ?");
@@ -20,11 +21,11 @@ public class GameTurns {
 
         if (firstTurn == 'y'){
             turn = 0;
-            game.firstPlayerPlay(boardGame.createBoardGame(), player.p1Symbol);
+            game.firstPlayerPlay(boardGame.board, player.p1Symbol);
         }
         else {
             turn = 1;
-            game.ComputerPlay(boardGame.createBoardGame(), player.compSymbol);
+            game.ComputerPlay(boardGame.board, player.compSymbol);
         }
     }
 }
