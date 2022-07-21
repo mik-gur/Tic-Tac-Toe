@@ -16,15 +16,13 @@ public class Game {
 }
     private char character;
 
-    public void updateBoard(int position, Player player1, Player player2, char[][] board) {
+    public void updateBoard(int position, Player player1, char[][] board) {
 
-        this.player1 = player1;
-        this.player2 = player2;
 
-        if (player2.getName().equals("Computer")) {
-            character = player2.getSymbol();
+        if (player1.getName().equals("Computer")) {
+            character = this.player2.getSymbol();
         } else {
-            character = player1.getSymbol();
+            character = this.player1.getSymbol();
         }
 
         switch (position) {
@@ -71,7 +69,7 @@ public class Game {
         }
     }
 
-    public void playerMove(char[][] board, Player player, Player player2) {
+    public void playerMove(char[][] board, Player player1) {
 
         System.out.println("Please make a move: 1-9");
 
@@ -84,7 +82,7 @@ public class Game {
             move = scanner.nextInt();
             result = isValidMove(move, board);
         }
-        updateBoard(move, player, player2, board);
+        updateBoard(move, player1, board);
     }
 
     public boolean isValidMove(int move, char[][] board) {
@@ -246,10 +244,15 @@ public class Game {
             }
             return true;
         }
+        if(board[0][0] != ' ' && board[0][1] != ' ' && board[0][2] != ' ' && board[1][0] !=' '&&
+           board[1][1] != ' ' && board[1][2] != ' ' && board[2][0] != ' ' && board[2][1] != ' ' && board[2][2] != ' '){
+            System.out.println("Its a tie");
+            return true;
+        }
         return false;
     }
 
-    public void computerPlay(char[][] board, Player player, Player player2) {
+    public void computerPlay(char[][] board, Player player2) {
 
         Random rand = new Random();
         int move = rand.nextInt(9)+1;
@@ -260,30 +263,30 @@ public class Game {
             move = rand.nextInt(9)+1;
             result = isValidMove(move, board);
         }
-
+        updateBoard(move,player2, board);
         System.out.println("Computer moved at position "+ move);
-        updateBoard(move,player2, player, board);
     }
 
-    public void startGame(char[][] board, Player player, Player player2) {
+    public void startGame(char[][] board, Player player1, Player player2) {
         boolean gameOver = false;
         boolean playAgain = true;
 
         while (playAgain) {
             while (!gameOver) {
                 boardGame.drawBoard(board);
-                playerMove(board, player, player2);
-                gameOver = isGameEnd(board, player);
+                playerMove(board, player1);
+                gameOver = isGameEnd(board, player1);
                 if (gameOver) {
                     break;
                 }
 
-                computerPlay(board, player2,player);
-                gameOver = isGameEnd(board, player);
+                computerPlay(board, player2);
+                gameOver = isGameEnd(board, player2);
                 if (gameOver) {
                     break;
                 }
             }
+            break;
         }
     }
 }

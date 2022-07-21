@@ -17,6 +17,9 @@ public class App
         Player computer = new Player(player);
         Game game = new Game(player, computer);
 
+        //GameTurns gameTurns = new GameTurns(player, computer);
+        //gameTurns.askForFirstTurn(boardGame.board, player, computer, game);
+
         game.startGame(boardGame.board, player, computer);
     }
 }
