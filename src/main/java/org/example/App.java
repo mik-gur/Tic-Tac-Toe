@@ -7,23 +7,16 @@ package org.example;
 public class App 
 {
     public static void main( String[] args ) {
-        Player player = new Player();
-        GameTurns gameTurns = new GameTurns();
+
         BoardGame boardGame = new BoardGame();
-        Game game = new Game();
-
-        for (char[] chars : boardGame.board) {
-            System.out.println(chars);
-        }
 
         boardGame.resetBoard(boardGame.board);
 
-        boardGame.drawBoard(boardGame.board);
+        System.out.println("!!Welcome in game Tic Tac Toe!!");
+        Player player = new Player();
+        Player computer = new Player(player);
+        Game game = new Game(player, computer);
 
-        boardGame.resetBoard(boardGame.board);
-        player.askPlayerForName();
-        player.askPlayerForSymbol();
-        game.playerMove(boardGame.board);
-        System.out.println(game.character);
+        game.startGame(boardGame.board, player, computer);
     }
 }

@@ -1,23 +1,33 @@
 package org.example;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 
     private Scanner scanner = new Scanner(System.in);
     private BoardGame boardGame = new BoardGame();
-    private Player players = new Player();
-    char character;
+    private Player player1;
+    private Player player2;
 
-    public void updateBoard(int position, int player, char[][] board){
+   public Game(Player player1,Player player2) {
+      this.player1 = player1;
+      this.player2 = player2;
+}
+    private char character;
 
-        if(player==0){
-            character = players.p1Symbol;
+    public void updateBoard(int position, Player player1, Player player2, char[][] board) {
+
+        this.player1 = player1;
+        this.player2 = player2;
+
+        if (player2.getName().equals("Computer")) {
+            character = player2.getSymbol();
         } else {
-            character = players.compSymbol;
+            character = player1.getSymbol();
         }
 
-        switch (position){
+        switch (position) {
 
             case 1:
                 board[0][0] = character;
@@ -61,118 +71,217 @@ public class Game {
         }
     }
 
-public void playerMove(char[][] board){
+    public void playerMove(char[][] board, Player player, Player player2) {
 
-    System.out.println("Please make a move: 1-9");
+        System.out.println("Please make a move: 1-9");
 
-    int move = scanner.nextInt();
+        int move = scanner.nextInt();
 
-    boolean result = isValidMove(move, board);
+        boolean result = isValidMove(move, board);
 
-    while(!result){
-        System.out.println("Sorry, valid move");
-        move = scanner.nextInt();
-        result = isValidMove(move, board);
+        while (!result) {
+            System.out.println("Sorry, valid move");
+            move = scanner.nextInt();
+            result = isValidMove(move, board);
+        }
+        updateBoard(move, player, player2, board);
     }
-        updateBoard(move, 0 ,board);
-}
 
-    public boolean isValidMove(int move, char[][] board){
-        switch (move){
+    public boolean isValidMove(int move, char[][] board) {
+/*        char selectedChar = ' ';
+        selectedChar = board[0][0];*/
+        switch (move) {
             case 1:
-                if(board[0][0] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[0][0] == ' ';
             case 2:
-                if(board[0][1] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[0][1] == ' ';
             case 3:
-                if(board[0][2] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
-
+                return board[0][2] == ' ';
             case 4:
-                if(board[1][0] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[1][0] == ' ';
             case 5:
-                if(board[1][1] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[1][1] == ' ';
             case 6:
-                if(board[1][2] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[1][2] == ' ';
             case 7:
-                if(board[2][0] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[2][0] == ' ';
             case 8:
-                if(board[2][1] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
+                return board[2][1] == ' ';
             case 9:
-                if(board[2][2] == ' '){
-                    return true;
-                } else{
-                    return false;
-                }
-
+                return board[2][2] == ' ';
             default:
                 return false;
         }
     }
 
-    public void firstPlayerPlay(char[][] board, char firstPlayerSymbol){
-        System.out.println("Enter the row and column: ");
-        int rowIndex = scanner.nextInt();
-        int colIndex = scanner.nextInt();
-
-        if(board[rowIndex][colIndex] != ' '){
-            System.out.println("This cell is already taken. Please try other row and column! ");
-            rowIndex = scanner.nextInt();
-            colIndex = scanner.nextInt();
-        } else {
-            board[rowIndex][colIndex] = firstPlayerSymbol;
-            boardGame.drawBoard(boardGame.board);
+    public boolean isGameEnd(char[][] board, Player player) {
+        //Horizontally wins
+        if (board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
         }
+        if (board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[1][0] == 'X' && board[1][1] == 'X' && board[1][2] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[2][0] == 'X' && board[2][1] == 'X' && board[2][2] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[2][0] == 'O' && board[2][1] == 'O' && board[2][2] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        //Diagonally wins
+        if (board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        //Vertically wins
+        if (board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        if (board[0][2] == 'O' && board[1][1] == 'O' && board[2][2] == 'O') {
+            if (player.getName().equals("Computer")) {
+                System.out.println("Computer wins!");
+            } else {
+                System.out.println("Player wins!");
+            }
+            return true;
+        }
+        return false;
     }
 
-    public char secondPlayerPlay(char[][] board, char secondPlayerSymbol){
-        System.out.println("Enter the row and column: ");
-        int rowIndex = scanner.nextInt();
-        int colIndex = scanner.nextInt();
+    public void computerPlay(char[][] board, Player player, Player player2) {
 
-        while(board[rowIndex][colIndex] != ' '){
-            System.out.println("This cell is already taken. Please try other row and column! ");
-            rowIndex = scanner.nextInt();
-            colIndex = scanner.nextInt();
+        Random rand = new Random();
+        int move = rand.nextInt(9)+1;
+
+        boolean result = isValidMove(move, board);
+
+        while(!result){
+            move = rand.nextInt(9)+1;
+            result = isValidMove(move, board);
         }
-        return board[rowIndex][colIndex] = secondPlayerSymbol;
+
+        System.out.println("Computer moved at position "+ move);
+        updateBoard(move,player2, player, board);
     }
 
-    public void ComputerPlay(char[][] board, char computerSymbol){
-        for(int i = 0; i < board.length; i++){
-            for (int j = 0; j < board[0].length; j++){
-                if(board[i][j] == ' '){
-                    board[i][j] = computerSymbol;
+    public void startGame(char[][] board, Player player, Player player2) {
+        boolean gameOver = false;
+        boolean playAgain = true;
+
+        while (playAgain) {
+            while (!gameOver) {
+                boardGame.drawBoard(board);
+                playerMove(board, player, player2);
+                gameOver = isGameEnd(board, player);
+                if (gameOver) {
+                    break;
+                }
+
+                computerPlay(board, player2,player);
+                gameOver = isGameEnd(board, player);
+                if (gameOver) {
+                    break;
                 }
             }
         }
