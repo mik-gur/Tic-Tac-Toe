@@ -6,14 +6,16 @@ import java.util.Scanner;
 public class Game {
 
     private Scanner scanner = new Scanner(System.in);
+    private GameEnd gameEnd = new GameEnd();
     private BoardGame boardGame = new BoardGame();
     private Player player1;
     private Player player2;
 
-   public Game(Player player1,Player player2) {
-      this.player1 = player1;
-      this.player2 = player2;
-}
+    public Game(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+
     private char character;
 
     public void updateBoard(int position, Player player1, char[][] board) {
@@ -78,11 +80,26 @@ public class Game {
         boolean result = isValidMove(move, board);
 
         while (!result) {
-            System.out.println("Sorry, valid move");
+            System.out.println("This box is not empty! Choose another one!");
             move = scanner.nextInt();
             result = isValidMove(move, board);
         }
         updateBoard(move, player1, board);
+    }
+
+    public void computerPlay(char[][] board, Player player2) {
+
+        Random rand = new Random();
+        int move = rand.nextInt(9) + 1;
+
+        boolean result = isValidMove(move, board);
+
+        while (!result) {
+            move = rand.nextInt(9) + 1;
+            result = isValidMove(move, board);
+        }
+        updateBoard(move, player2, board);
+        System.out.println("Computer moved at position " + move);
     }
 
     public boolean isValidMove(int move, char[][] board) {
@@ -112,161 +129,6 @@ public class Game {
         }
     }
 
-    public boolean isGameEnd(char[][] board, Player player) {
-        //Horizontally wins
-        if (board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[1][0] == 'X' && board[1][1] == 'X' && board[1][2] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[2][0] == 'X' && board[2][1] == 'X' && board[2][2] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[2][0] == 'O' && board[2][1] == 'O' && board[2][2] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        //Diagonally wins
-        if (board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        //Vertically wins
-        if (board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if (board[0][2] == 'O' && board[1][1] == 'O' && board[2][2] == 'O') {
-            if (player.getName().equals("Computer")) {
-                System.out.println("Computer wins!");
-            } else {
-                System.out.println("Player wins!");
-            }
-            return true;
-        }
-        if(board[0][0] != ' ' && board[0][1] != ' ' && board[0][2] != ' ' && board[1][0] !=' '&&
-           board[1][1] != ' ' && board[1][2] != ' ' && board[2][0] != ' ' && board[2][1] != ' ' && board[2][2] != ' '){
-            System.out.println("Its a tie");
-            return true;
-        }
-        return false;
-    }
-
-    public void computerPlay(char[][] board, Player player2) {
-
-        Random rand = new Random();
-        int move = rand.nextInt(9)+1;
-
-        boolean result = isValidMove(move, board);
-
-        while(!result){
-            move = rand.nextInt(9)+1;
-            result = isValidMove(move, board);
-        }
-        updateBoard(move,player2, board);
-        System.out.println("Computer moved at position "+ move);
-    }
-
     public void startGame(char[][] board, Player player1, Player player2) {
         boolean gameOver = false;
         boolean playAgain = true;
@@ -275,18 +137,29 @@ public class Game {
             while (!gameOver) {
                 boardGame.drawBoard(board);
                 playerMove(board, player1);
-                gameOver = isGameEnd(board, player1);
+                gameOver = gameEnd.isGameEnd(board, player1);
                 if (gameOver) {
                     break;
                 }
 
                 computerPlay(board, player2);
-                gameOver = isGameEnd(board, player2);
+                gameOver = gameEnd.isGameEnd(board, player2);
                 if (gameOver) {
                     break;
                 }
             }
-            break;
+            System.out.println("Are we staring next game? y/n");
+            scanner.nextLine();
+            char nextGame = scanner.nextLine().toLowerCase().charAt(0);
+            if(nextGame == 'y'){
+                playAgain = true;
+                boardGame.resetBoard(board);
+                gameOver = false;
+            }
+            else {
+                System.out.println("Thanks for playing!");
+                break;
+            }
         }
     }
 }

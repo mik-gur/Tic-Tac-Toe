@@ -19,7 +19,7 @@ public class Player {
         this.name = "Computer";
     }
 
-    public void askPlayerForName(){
+    public void askPlayerForName() {
         System.out.println("What is your name?");
         name = scanner.nextLine();
         System.out.println("Welcome " + name);
@@ -34,7 +34,7 @@ public class Player {
 //        System.out.println("Welcome " + p1Name + " and " + p2Name);
 //    }
 
-    public void askPlayerForSymbol(){
+    public void askPlayerForSymbol() {
         System.out.println("Which symbol you want to use: X or O?");
         scanner = new Scanner(System.in);
         symbol = scanner.next().toUpperCase().charAt(0);
