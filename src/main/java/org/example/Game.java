@@ -15,7 +15,7 @@ public class Game {
         this.player1 = player1;
         this.player2 = player2;
     }
-
+    private GameTurns gameTurns = new GameTurns();
     private char character;
 
     public void updateBoard(int position, Player player1, char[][] board) {
@@ -134,18 +134,34 @@ public class Game {
         boolean playAgain = true;
 
         while (playAgain) {
+            gameTurns.askForFirstTurn();
             while (!gameOver) {
-                boardGame.drawBoard(board);
-                playerMove(board, player1);
-                gameOver = gameEnd.isGameEnd(board, player1);
-                if (gameOver) {
-                    break;
-                }
+                if (gameTurns.getTurn() == 0) {
+                    boardGame.drawBoard(board);
+                    playerMove(board, player1);
+                    gameOver = gameEnd.isGameEnd(board, player1);
+                    if (gameOver) {
+                        break;
+                    }
 
-                computerPlay(board, player2);
-                gameOver = gameEnd.isGameEnd(board, player2);
-                if (gameOver) {
-                    break;
+                    computerPlay(board, player2);
+                    gameOver = gameEnd.isGameEnd(board, player2);
+                    if (gameOver) {
+                        break;
+                    }
+                } else {
+                    boardGame.drawBoard(board);
+                    computerPlay(board, player2);
+                    gameOver = gameEnd.isGameEnd(board, player2);
+                    if (gameOver) {
+                        break;
+                    }
+
+                    playerMove(board, player1);
+                    gameOver = gameEnd.isGameEnd(board, player1);
+                    if (gameOver) {
+                        break;
+                    }
                 }
             }
             System.out.println("Are we staring next game? y/n");
