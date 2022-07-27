@@ -19,6 +19,12 @@ public class Player {
         this.name = "Computer";
     }
 
+    public Player(char symbol) {
+        askPlayerForName();
+        this.symbol = (symbol == 'X') ? 'O' : 'X';
+        System.out.println("Your symbol is " + getSymbol());
+    }
+
     public void askPlayerForName() {
         System.out.println("What is your name?");
         name = scanner.nextLine();
@@ -38,8 +44,8 @@ public class Player {
         System.out.println("Which symbol you want to use: X or O?");
         scanner = new Scanner(System.in);
         symbol = scanner.next().toUpperCase().charAt(0);
-        char compSymbol = (symbol == 'X') ? 'O' : 'X';
-        System.out.println("You have " + symbol + " symbol and Computer have " + compSymbol);
+        char opponentSymbol = (symbol == 'X') ? 'O' : 'X';
+        System.out.println("You have " + symbol + " symbol and your opponent have " + opponentSymbol);
     }
 //
 //    public void askPlayersForSymbols(){

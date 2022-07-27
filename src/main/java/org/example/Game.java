@@ -23,7 +23,9 @@ public class Game {
 
         if (player1.getName().equals("Computer")) {
             character = this.player2.getSymbol();
-        } else {
+        } else if (player1.getName().equals(player2.getName())){
+            character = this.player2.getSymbol();
+        }else {
             character = this.player1.getSymbol();
         }
 
@@ -129,7 +131,7 @@ public class Game {
         }
     }
 
-    public void startGame(char[][] board, Player player1, Player player2) {
+    public void startBotGame(char[][] board, Player player1, Player player2) {
         boolean gameOver = false;
         boolean playAgain = true;
 
@@ -157,6 +159,60 @@ public class Game {
                         break;
                     }
 
+                    playerMove(board, player1);
+                    gameOver = gameEnd.isGameEnd(board, player1);
+                    if (gameOver) {
+                        break;
+                    }
+                }
+            }
+            System.out.println("Are we staring next game? y/n");
+            scanner.nextLine();
+            char nextGame = scanner.nextLine().toLowerCase().charAt(0);
+            if(nextGame == 'y'){
+                playAgain = true;
+                boardGame.resetBoard(board);
+                gameOver = false;
+            }
+            else {
+                System.out.println("Thanks for playing!");
+                break;
+            }
+        }
+    }
+
+    public void startPlayerVsPlayerGame(char[][] board, Player player1, Player player2) {
+        boolean gameOver = false;
+        boolean playAgain = true;
+
+        while (playAgain) {
+            gameTurns.askForFirstTurn();
+            while (!gameOver) {
+                if (gameTurns.getTurn() == 0) {
+                    boardGame.drawBoard(board);
+                    System.out.println("Turn " + player1.getName() + " player");
+                    playerMove(board, player1);
+                    gameOver = gameEnd.isGameEnd(board, player1);
+                    if (gameOver) {
+                        break;
+                    }
+
+                    System.out.println("Turn " + player2.getName() + " player");
+                    playerMove(board, player2);
+                    gameOver = gameEnd.isGameEnd(board, player2);
+                    if (gameOver) {
+                        break;
+                    }
+                } else {
+                    boardGame.drawBoard(board);
+                    System.out.println("Turn " + player2.getName() + " player");
+                    playerMove(board, player2);
+                    gameOver = gameEnd.isGameEnd(board, player2);
+                    if (gameOver) {
+                        break;
+                    }
+
+                    System.out.println("Turn " + player1.getName() + " player");
                     playerMove(board, player1);
                     gameOver = gameEnd.isGameEnd(board, player1);
                     if (gameOver) {
