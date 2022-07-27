@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -74,19 +75,20 @@ public class Game {
     }
 
     public void playerMove(char[][] board, Player player1) {
+            System.out.println("Please make a move: 1-9");
 
-        System.out.println("Please make a move: 1-9");
+            scanner = new Scanner(System.in);
 
-        int move = scanner.nextInt();
+            int move = scanner.nextInt();
 
-        boolean result = isValidMove(move, board);
+            boolean result = isValidMove(move, board);
 
-        while (!result) {
-            System.out.println("This box is not empty! Choose another one!");
-            move = scanner.nextInt();
-            result = isValidMove(move, board);
-        }
-        updateBoard(move, player1, board);
+            while (!result) {
+                System.out.println("This box is not empty! Choose another one!");
+                move = scanner.nextInt();
+                result = isValidMove(move, board);
+            }
+            updateBoard(move, player1, board);
     }
 
     public void computerPlay(char[][] board, Player player2) {
@@ -127,6 +129,7 @@ public class Game {
             case 9:
                 return board[2][2] == ' ';
             default:
+                System.out.println("You must enter an integer between 1 and 9!");
                 return false;
         }
     }
@@ -134,49 +137,63 @@ public class Game {
     public void startBotGame(char[][] board, Player player1, Player player2) {
         boolean gameOver = false;
         boolean playAgain = true;
+        boolean playerMoveDone = true;
 
         while (playAgain) {
             gameTurns.askForFirstTurn();
             while (!gameOver) {
                 if (gameTurns.getTurn() == 0) {
                     boardGame.drawBoard(board);
-                    playerMove(board, player1);
-                    gameOver = gameEnd.isGameEnd(board, player1);
-                    if (gameOver) {
-                        break;
-                    }
+                    try {
+                        playerMove(board, player1);
+                        gameOver = gameEnd.isGameEnd(board, player1);
+                        if (gameOver) {
+                            break;
+                        }
 
-                    computerPlay(board, player2);
-                    gameOver = gameEnd.isGameEnd(board, player2);
-                    if (gameOver) {
-                        break;
+                        computerPlay(board, player2);
+                        gameOver = gameEnd.isGameEnd(board, player2);
+                        if (gameOver) {
+                            break;
+                        }
+                    } catch (InputMismatchException e){
+                        System.out.println("You must enter an integer!");
                     }
                 } else {
                     boardGame.drawBoard(board);
-                    computerPlay(board, player2);
-                    gameOver = gameEnd.isGameEnd(board, player2);
-                    if (gameOver) {
-                        break;
-                    }
-
-                    playerMove(board, player1);
-                    gameOver = gameEnd.isGameEnd(board, player1);
-                    if (gameOver) {
-                        break;
+                        if(playerMoveDone)
+                        computerPlay(board, player2);
+                        gameOver = gameEnd.isGameEnd(board, player2);
+                        playerMoveDone = false;
+                        if (gameOver) {
+                            break;
+                        }
+                    try {
+                        playerMove(board, player1);
+                        gameOver = gameEnd.isGameEnd(board, player1);
+                        playerMoveDone = true;
+                        if (gameOver) {
+                            break;
+                        }
+                    } catch (InputMismatchException e){
+                        System.out.println("You must enter and integer!");
                     }
                 }
             }
-            System.out.println("Are we staring next game? y/n");
-            scanner.nextLine();
-            char nextGame = scanner.nextLine().toLowerCase().charAt(0);
-            if(nextGame == 'y'){
-                playAgain = true;
-                boardGame.resetBoard(board);
-                gameOver = false;
-            }
-            else {
-                System.out.println("Thanks for playing!");
-                break;
+            System.out.println("Are we staring next game? y = yes, something else = no");
+            scanner = new Scanner(System.in);
+            try {
+                char nextGame = scanner.nextLine().toLowerCase().charAt(0);
+                if (nextGame == 'y') {
+                    playAgain = true;
+                    boardGame.resetBoard(board);
+                    gameOver = false;
+                } else {
+                    System.out.println("Thanks for playing!");
+                    break;
+                }
+            } catch (InputMismatchException e){
+                System.out.println("Please enter y or n");
             }
         }
     }
@@ -220,17 +237,20 @@ public class Game {
                     }
                 }
             }
-            System.out.println("Are we staring next game? y/n");
-            scanner.nextLine();
-            char nextGame = scanner.nextLine().toLowerCase().charAt(0);
-            if(nextGame == 'y'){
-                playAgain = true;
-                boardGame.resetBoard(board);
-                gameOver = false;
-            }
-            else {
-                System.out.println("Thanks for playing!");
-                break;
+            System.out.println("Are we staring next game? y = yes, something else = no");
+            scanner = new Scanner(System.in);
+            try {
+                char nextGame = scanner.nextLine().toLowerCase().charAt(0);
+                if (nextGame == 'y') {
+                    playAgain = true;
+                    boardGame.resetBoard(board);
+                    gameOver = false;
+                } else {
+                    System.out.println("Thanks for playing!");
+                    break;
+                }
+            } catch (InputMismatchException e){
+                System.out.println("Please enter y or n");
             }
         }
     }
