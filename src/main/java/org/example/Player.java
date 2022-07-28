@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player {
@@ -33,8 +34,25 @@ public class Player {
 
     public void askPlayerForSymbol() {
         System.out.println("Which symbol you want to use: X or O?");
-        scanner = new Scanner(System.in);
-        symbol = scanner.next().toUpperCase().charAt(0);
+        char askedSymbol = 0;
+        while(!(askedSymbol == 'X' || askedSymbol == 'O')) {
+            scanner = new Scanner(System.in);
+            try {
+                askedSymbol = scanner.next().toUpperCase().charAt(0);
+                switch (askedSymbol){
+                    case 'X' :
+                        symbol = 'X';
+                        break;
+                    case 'O' :
+                        symbol = 'O';
+                        break;
+                    default:
+                        System.out.println("Please enter x or o!");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("Please enter x or o!");
+            }
+        }
         char opponentSymbol = (symbol == 'X') ? 'O' : 'X';
         System.out.println("You have " + symbol + " symbol and your opponent have " + opponentSymbol);
     }
