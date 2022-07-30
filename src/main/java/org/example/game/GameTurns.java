@@ -1,4 +1,4 @@
-package org.example;
+package org.example.game;
 
 import java.util.Scanner;
 
@@ -18,6 +18,10 @@ public class GameTurns {
         } else {
             turn = 1;
         }
+    }
+
+    public boolean playerStarts() {
+        return getTurn() == 0;
     }
 
     public int getTurn() {

@@ -1,11 +1,14 @@
-package org.example;
+package org.example.game;
+
+import org.example.domain.Player;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameMenu {
     private Scanner scanner = new Scanner(System.in);
-    public void startGame(){
+
+    public void startGame() {
         boolean loopMenuIsEnd = false;
         System.out.println("!!Welcome in game Tic Tac Toe!!");
 
@@ -36,26 +39,28 @@ public class GameMenu {
     }
 
     private void startGameWithBot() {
-        BoardGame boardGame = new BoardGame();
+        GameBoard gameBoard = new GameBoard();
 
-        boardGame.resetBoard(boardGame.board);
+        gameBoard.resetBoard(gameBoard.board);
 
         Player player = new Player();
         Player computer = new Player(player);
         Game game = new Game(player, computer);
+        GameMove gameMove = new GameMove(player, computer);
 
-        game.startBotGame(boardGame.board, player, computer);
+        game.startBotGame(gameBoard.board, player, computer, gameMove);
     }
 
     private void starGameWithOtherPlayer() {
-        BoardGame boardGame = new BoardGame();
+        GameBoard gameBoard = new GameBoard();
 
-        boardGame.resetBoard(boardGame.board);
+        gameBoard.resetBoard(gameBoard.board);
 
         Player player = new Player();
         Player player2 = new Player(player.getSymbol());
         Game game = new Game(player, player2);
+        GameMove gameMove = new GameMove(player, player2);
 
-        game.startPlayerVsPlayerGame(boardGame.board, player, player2);
+        game.startPlayerVsPlayerGame(gameBoard.board, player, player2, gameMove);
     }
 }

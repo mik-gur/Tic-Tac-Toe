@@ -1,6 +1,6 @@
-package org.example;
+package org.example.game;
 
-public class BoardGame {
+public class GameBoard {
     protected final int SIZE_BOARD = 3;
     protected char[][] board = new char[SIZE_BOARD][SIZE_BOARD];
 

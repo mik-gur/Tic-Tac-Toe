@@ -1,4 +1,6 @@
-package org.example;
+package org.example.game;
+
+import org.example.domain.Player;
 
 public class GameEnd {
     public void whoWins(Player player) {

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.domain;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -35,21 +35,21 @@ public class Player {
     public void askPlayerForSymbol() {
         System.out.println("Which symbol you want to use: X or O?");
         char askedSymbol = 0;
-        while(!(askedSymbol == 'X' || askedSymbol == 'O')) {
+        while (!(askedSymbol == 'X' || askedSymbol == 'O')) {
             scanner = new Scanner(System.in);
             try {
                 askedSymbol = scanner.next().toUpperCase().charAt(0);
-                switch (askedSymbol){
-                    case 'X' :
+                switch (askedSymbol) {
+                    case 'X':
                         symbol = 'X';
                         break;
-                    case 'O' :
+                    case 'O':
                         symbol = 'O';
                         break;
                     default:
                         System.out.println("Please enter x or o!");
                 }
-            } catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Please enter x or o!");
             }
         }
